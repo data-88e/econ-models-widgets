@@ -33,7 +33,7 @@ def firm_behaviour(price, individual_firm_costs):
         ax.add_patch(patches.Rectangle((0, price),
                                        output, atc_at_output-price,
                                        color ='green', alpha=.3, zorder=1000))
-
+                                       
 def find_x_pos(widths):
     cumulative_widths = [0]
     cumulative_widths.extend(np.cumsum(widths))
@@ -42,11 +42,11 @@ def find_x_pos(widths):
     for i in range(0, len(half_widths)):
         x_pos.append(half_widths[i] + cumulative_widths[i])
     return x_pos
-
+    
 ESG_table = Table.read_table('ESGPorfolios_forcsv.csv').select(
     "Group", "Group_num", "UNIT NAME", "Capacity_MW", "Total_Var_Cost_USDperMWH").sort(
     "Total_Var_Cost_USDperMWH", descending = False).relabel(4, "Average Variable Cost")
-
+    
 selection = 'Big Coal'
 Group = ESG_table.where("Group", selection)
 
@@ -73,7 +73,7 @@ def group_plot(price):
     plt.xlabel('Capacity_MW')
     plt.ylabel('Variable Cost')
     plt.axhline(y=price, color='r', linewidth = 2)
-    
+
 width = ESG_table.column("Capacity_MW")
 height = ESG_table.column("Average Variable Cost")
 new_x = find_x_pos(width)
@@ -84,7 +84,7 @@ colors = ['#EC5F67', '#F29056', '#F9C863', '#99C794', '#5FB3B3', '#6699CC', '#C5
 for i in set(ESG_table['Group']):
     energy_colors_dict[i] = colors[count]
     count += 1
-    
+
 colors_mapped = list(pd.Series(ESG_table['Group']).map(energy_colors_dict))
 ESG_table = ESG_table.with_column('Color', colors_mapped)
 
