@@ -7,3 +7,4 @@ ipython
 ipywidgets
 csaps
 datascience
+sympy
