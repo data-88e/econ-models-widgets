@@ -8,3 +8,5 @@ ipywidgets
 csaps
 datascience
 sympy
+plotly
+chart_studio
